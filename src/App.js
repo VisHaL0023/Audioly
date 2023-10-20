@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar/NavBar";
 import { fetchTopAlbums } from "./API/api";
 import { useEffect, useState } from "react";
 import Card from "./components/Card/Card";
+import Section from "./components/Section/Section";
 
 function App() {
   
@@ -25,11 +26,14 @@ function App() {
 
       <Hero />
 
-      {topAlbums.map((item) => {
+      {/* {topAlbums.map((item) => {
         return (
           <Card key ={item.id} data = {item} type="album" />
         )
-      })}
+      })} */}
+      <div>
+        < Section data = {topAlbums} title="Top-albums" />
+      </div>
     </div>
   );
 }
