@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import styles from "./Carousel.module.css";
-import Swiper from "swiper";
-import { useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import CarouselLeftNavigation from "./CarouselLeftNavigation";
+import CarouselRightNavigation from "./CarouselRightNavigation";
+import "swiper/css";
 
-const Carousel = ({ data }) => {
-  const Controls = ({ data }) => {
-    const swiper = useSwiper();
-    console.log(swiper);
-    useEffect(() => {
-      swiper.slideTo(0);
-    }, [data]);
-    return <></>;
-  };
+const Controls = ({ data }) => {
+  const swiper = useSwiper();
+  useEffect(() => {
+    swiper.slideTo(0, null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+  return <></>;
+};
 
+const Carousel = ({ data, componentRender }) => {
   return (
     <div className={styles.wrapper}>
       <Swiper
@@ -23,6 +25,11 @@ const Carousel = ({ data }) => {
         allowTouchMove
       >
         <Controls data={data} />
+        <CarouselLeftNavigation />
+        <CarouselRightNavigation />
+        {data.map((item) => {
+          return <SwiperSlide>{componentRender(item)}</SwiperSlide>;
+        })}
       </Swiper>
     </div>
   );

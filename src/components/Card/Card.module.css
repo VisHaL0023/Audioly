@@ -1,18 +1,22 @@
-/* .container{
-    display: flex;
-} */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 .wrapper{
     width: 160px;
+    margin-bottom: 15px;
+}
 
+img{
+    max-width: 100%;
 }
 
 .card{
+	font-family: "Poppins", sans-serif;
     position: relative;
     width: 160px;
     height: 205px;
     border-radius: 10px;
     overflow: hidden;
+	border: 1px solid black;
 }
 
 .banner{
@@ -28,13 +32,14 @@
 }
 
 .chip{
+    font-family: "Poppins", sans-serif;
     background-color: var(--color-black);
     color: var(--color-white);
+    border: 1px solid var(--color-black);
 }
 
 .titleWrapper{
     margin-top: 6px;
     overflow: hidden;
     text-overflow: ellipsis;
-
 }
