@@ -1,19 +1,33 @@
-.wrapper{
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
+.sectionWrapper {
+	width: 100%;
+	margin-bottom: 25px;
+	
 }
 
-.header{
-    display: flex;
-    justify-content: space-between;
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
 }
 
-.toggleText{
-    cursor: pointer;
-    color: var(--color-primary);
+.cardWrapper {
+	margin-top: 10px;
 }
 
-.cardWrapper{
-    margin-top: 18px;
+.wrapper {
+	display: flex;
+	gap: 25px;
+	flex-wrap: wrap;
+}
+
+.toggleText {
+	margin-right: 10px;
+	cursor: pointer;
+	color: var(--color-primary);
+}
+
+@media only screen and (max-width: 576px) {
+	.wrapper {
+		gap: 5px;
+	}
 }

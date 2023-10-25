@@ -1,56 +1,47 @@
 import React, { useState } from "react";
 import styles from "./Section.module.css";
-import { CircularProgress } from "@mui/material";
 import Card from "../Card/Card";
 import Carousel from "../Carousel/Carousel";
-import BasicTabs from "../Tabs/Tabs";
+import SkeletonLoader from "../SkeletonLoder/SkeletonLoader";
 
-const Section = ({
-  data,
-  title,
-  type,
-  filteredData = null,
-  filteredDataValues = [],
-  value = 0,
-  handleChange = null,
-}) => {
+const Section = ({ title, data, type, header, loadingState }) => {
   const [carouselToggle, setCarouselToggle] = useState(true);
 
   const handleToggle = () => {
     setCarouselToggle(!carouselToggle);
-    // console.log(data);
   };
-
   return (
-    <div>
-      <div className={styles.header}>
-        <h3>{title}</h3>
-        <h4 className={styles.toggleText} onClick={handleToggle}>
-          {carouselToggle ? "Show All" : "Collapse All"}
-        </h4>
-      </div>
-
-      {type === "song" ? (
-        <BasicTabs value={value} handleChange={handleChange} />
-      ) : null}
-
-      {!data.length ? (
-        <CircularProgress />
+    <div className={styles.sectionWrapper}>
+      {header === "all" ? (
+        <></>
       ) : (
+        <div className={styles.header}>
+          <h3>{title}</h3>
+          <h4 className={styles.toggleText} onClick={handleToggle}>
+            {carouselToggle ? "Show all" : "Collapse"}
+          </h4>
+        </div>
+      )}
+
+      {data.length ? (
         <div className={styles.cardWrapper}>
           {!carouselToggle ? (
             <div className={styles.wrapper}>
               {data?.map((item) => (
-                <Card key={item.id} data={item} type={type} />
+                <Card data={item} type={type} key={item.id} />
               ))}
             </div>
           ) : (
             <Carousel
               data={data}
-              componentRender={(ele) => <Card data={ele} type={type} />}
+              renderCardComponent={(item) => <Card data={item} type={type} />}
             />
           )}
         </div>
+      ) : loadingState ? (
+        <SkeletonLoader name={"card"} count={5} />
+      ) : (
+        <p>No Data found</p>
       )}
     </div>
   );

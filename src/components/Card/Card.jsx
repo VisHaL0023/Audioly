@@ -1,57 +1,60 @@
 import React from "react";
-import styles from "./Card.module.css";
-import { Chip, Tooltip } from "@mui/material";
+import { Tooltip,Chip } from "@mui/material";
+import styles from "./Card.module.css"
+import { useNavigate } from "react-router-dom";
 
 const Card = ({ data, type }) => {
+  const navigate =useNavigate()
   const getCard = (type) => {
     switch (type) {
-      case "album": {
-        const { image, follows, title, songs, slug } = data;
+      case "album":
         return (
-          <Tooltip title={`${songs?.length} songs`} placement="top" arrow>
-            <div className={styles.wrapper}>
-              <div className={styles.card}>
-                <img src={image} alt="album" />
-                <div className={styles.banner}>
-                  <Chip
-                    className={styles.chip}
-                    label={`${follows}`}
-                    Follows
-                    size="small"
-                  />
+          <Tooltip
+            title={`${data.songs.length} songs`}
+            placement="top"
+            arrow
+          >
+            <div className={styles.wrapper}
+            onClick={() =>navigate(`/album/${data?.slug}`)}
+            >
+                <div className={styles.card}>
+                    <img src={data.image} alt="album" />
+                    <div className={styles.banner}>
+                        <Chip 
+                        label={`${data.follows} Follows`}
+                        className={styles.chip}
+                        size="small"
+                        />
+                    </div>
                 </div>
-              </div>
-              <div className={styles.titleWrapper}>
-                <p>{title}</p>
-              </div>
+                <div className={styles.titleWrapper}>
+                    <p>{data.title}</p>
+                </div>
             </div>
           </Tooltip>
         );
-      }
-      case "song": {
-        const { image, likes, title } = data;
-
-        return (
-          <div className={styles.wrapper}>
-            <div className={styles.card}>
-              <img src={image} alt="Song" loading="Lazy" />
-              <div className={styles.banner}>
-                <div className={styles.pill}>
-                  <p>{likes} Likes</p>
+        case "songs":
+          return (
+            <div className={styles.wrapper}>
+              <div className={styles.card}>
+                <img src={data.image} alt="songs" loading="lazy" />
+                <div className={styles.banner}>
+                  <div id={styles.pill}>
+                    <p>{data.likes}</p>
+                  </div>
                 </div>
               </div>
+              <div className={styles.titleWrapper}>
+                <p>{data.title}</p>
+              </div>
             </div>
-            <div className={styles.titleWrapper}>
-              <p>{title}</p>
-            </div>
-          </div>
-        );
-      }
-      default:
-        return <></>;
+          )
+        default:
+            return <></>;
     }
-  };
-  return getCard(type);
+};
+
+return getCard(type);
 };
 
 export default Card;
